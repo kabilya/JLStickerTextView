@@ -434,32 +434,6 @@ extension JLStickerLabelView {
               self.closeView?.transform = t
               self.rotateView?.transform = t
               
-              var attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "like after")
-              let textAttachment = NSTextAttachment()
-              textAttachment.image = UIImage(named:"close")
-              
-              let oldWidth = textAttachment.image!.size.width
-              let scaleFactor = oldWidth / (labelTextView.frame.size.width - 10)
-              textAttachment.image = UIImage(CGImage: textAttachment.image!.CGImage!, scale: scaleFactor, orientation: .Up)
-              
-              let attrStringWithImage: NSAttributedString = NSAttributedString(attachment: textAttachment)
-              attributedString.replaceCharactersInRange(NSMakeRange(4, 1), withAttributedString: attrStringWithImage)
-              
-              self.labelTextView.attributedText = attributedString
-           
-              
-              /*
-              res.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, res.length), options: [], usingBlock: ( value:AnyObject!, range:NSRange, stop:UnsafeMutablePointer<ObjCBool>) -> Void in {
-                
-                //let oldWidth = self.labelTextView.attributedText.image!.size.width
-                
-                //let scaleFactor = oldWidth / (textView.frame.size.width - 10)
-                //value.image = UIImage(CGImage: textAttachment.image!.CGImage, scale: scaleFactor, orientation: .Up)
-                
-              })
-              */
-              
-              
               if (isShowingEditingHandles)
               {
                 if let border: CALayer = border
