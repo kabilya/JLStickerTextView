@@ -25,19 +25,19 @@ public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     
     init() {
         super.init(frame: CGRect.zero)
-        isUserInteractionEnabled = true
+        userInteractionEnabled = true
         labels = []
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        isUserInteractionEnabled = true
+        userInteractionEnabled = true
         labels = []
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        isUserInteractionEnabled = true
+        userInteractionEnabled = true
         labels = []
     }
     
@@ -50,30 +50,30 @@ extension JLStickerImageView {
         if let label: JLStickerLabelView = currentlyEditingLabel {
             label.hideEditingHandlers()
         }
-        
-        let labelFrame = CGRect(x: self.bounds.midX - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    y: self.bounds.midY - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
+      
+        let labelFrame = CGRect(x: self.bounds.midX,
+                                    y: self.bounds.midY,
                                     width: 60, height: 50)
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.delegate = self
         labelView.showsContentShadow = false
         //labelView.enableMoveRestriction = false
-        labelView.borderColor = UIColor.white()
-        labelView.labelTextView.fontName = "Baskerville-BoldItalic"
+        labelView.borderColor = UIColor.whiteColor()
+        labelView.labelTextView.fontName = "HelveticaNeue"
         self.addSubview(labelView)
         self.currentlyEditingLabel = labelView
         adjustsWidthToFillItsContens(currentlyEditingLabel, labelView: currentlyEditingLabel.labelTextView)
-        self.labels.add(labelView)
+        self.labels.addObject(labelView)
         
         self.addGestureRecognizer(tapOutsideGestureRecognizer)
         
     }
     
-    public func renderTextOnView(_ view: UIView) -> UIImage? {
+    public func renderTextOnView(view: UIView) -> UIImage? {
         
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, 0)
         
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
@@ -112,40 +112,40 @@ extension JLStickerImageView {
 //MARK-
 //MARK: stickerViewDelegate
 extension JLStickerImageView: JLStickerLabelViewDelegate {
-    public func labelViewDidBeginEditing(_ label: JLStickerLabelView) {
+    public func labelViewDidBeginEditing(label: JLStickerLabelView) {
         //labels.removeObject(label)
         
     }
     
-    public func labelViewDidClose(_ label: JLStickerLabelView) {
+    public func labelViewDidClose(label: JLStickerLabelView) {
         
     }
     
-    public func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) {
+    public func labelViewDidShowEditingHandles(label: JLStickerLabelView) {
         currentlyEditingLabel = label
         
     }
     
-    public func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) {
+    public func labelViewDidHideEditingHandles(label: JLStickerLabelView) {
         currentlyEditingLabel = nil
         
     }
     
-    public func labelViewDidStartEditing(_ label: JLStickerLabelView) {
+    public func labelViewDidStartEditing(label: JLStickerLabelView) {
         currentlyEditingLabel = label
         
     }
     
-    public func labelViewDidChangeEditing(_ label: JLStickerLabelView) {
+    public func labelViewDidChangeEditing(label: JLStickerLabelView) {
         
     }
     
-    public func labelViewDidEndEditing(_ label: JLStickerLabelView) {
+    public func labelViewDidEndEditing(label: JLStickerLabelView) {
         
         
     }
     
-    public func labelViewDidSelected(_ label: JLStickerLabelView) {
+    public func labelViewDidSelected(label: JLStickerLabelView) {
         for labelItem in labels {
             if let label: JLStickerLabelView = labelItem as? JLStickerLabelView {
                 label.hideEditingHandlers()

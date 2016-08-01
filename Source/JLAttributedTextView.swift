@@ -7,6 +7,7 @@
 //
 
 import UIKit
+typealias AttributedString = NSAttributedString
 
 public class JLAttributedTextView: UITextView {
 
@@ -17,7 +18,7 @@ public class JLAttributedTextView: UITextView {
     //MARK: Alpha
     public var textAlpha: CGFloat = 1 {
         didSet {
-            textAttributes[NSForegroundColorAttributeName] = foregroundColor?.withAlphaComponent(textAlpha)
+            textAttributes[NSForegroundColorAttributeName] = foregroundColor?.colorWithAlphaComponent(textAlpha)
             self.attributedText = AttributedString(string: self.text, attributes: textAttributes)
         }
     }
@@ -59,7 +60,7 @@ public class JLAttributedTextView: UITextView {
     //MARK: backgroundColor
     public var textBackgroundColor: UIColor? {
         didSet {
-            self.layer.backgroundColor = textBackgroundColor?.cgColor
+            self.layer.backgroundColor = textBackgroundColor?.CGColor
             //textAttributes[NSBackgroundColorAttributeName] = textBackgroundColor
             //self.attributedText = NSAttributedString(string: self.text, attributes: textAttributes)
         }
@@ -69,7 +70,7 @@ public class JLAttributedTextView: UITextView {
         didSet {
             //textAttributes[NSBackgroundColorAttributeName] = textBackgroundColor?.colorWithAlphaComponent(textBackgroundAlpha!)
             //self.attributedText = NSAttributedString(string: self.text, attributes: textAttributes)
-            self.layer.backgroundColor = textBackgroundColor?.withAlphaComponent(textBackgroundAlpha!).cgColor
+            self.layer.backgroundColor = textBackgroundColor?.colorWithAlphaComponent(textBackgroundAlpha!).CGColor
         }
     }
 
@@ -196,7 +197,7 @@ public class JLAttributedTextView: UITextView {
          
          - returns: The receiver.
          */
-        public func shadow(_ shadow: NSShadow?) -> Self {
+        public func shadow(shadow: NSShadow?) -> Self {
             self.shadow = shadow
             return self
         }
@@ -209,8 +210,8 @@ public class JLAttributedTextView: UITextView {
 //MARK: CGRect of Cursor
 
 extension JLAttributedTextView {
-    override public func caretRect(for position: UITextPosition) -> CGRect {
-        var originalRect = super.caretRect(for: position)
+    public func caretRectForPosition(for position: UITextPosition) -> CGRect {
+        var originalRect = super.caretRectForPosition(position)
         originalRect.size.height = self.font!.pointSize - self.font!.descender
         // "descender" is expressed as a negative value,
         // so to add its height you must subtract its value
